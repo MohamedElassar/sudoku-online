@@ -2,6 +2,7 @@ const puzzle_HTML = document.getElementById("puzzle");
 const easy_button_HTML = document.getElementById("easy");
 const medium_button_HTML = document.getElementById("medium");
 const hard_button_HTML = document.getElementById("hard");
+const verify_button_HTML = document.getElementById("verify");
 
 easy_button_HTML.addEventListener("click", setURL);
 medium_button_HTML.addEventListener("click", setURL);
@@ -10,22 +11,19 @@ hard_button_HTML.addEventListener("click", setURL);
 var url = "https://sugoku.herokuapp.com/board?difficulty=";
 
 class Square {
-	constructor(id)	{
+	constructor(id) {
 		this.inp = document.createElement("input");	
 		this.inp.setAttribute('class', 'inputs');
 		this.inp.setAttribute('type', 'number');
-		this.inp.setAttribute('min', '1');
-		this.inp.setAttribute('max', '9');
-		this.inp.setAttribute('maxlength', '1');
+		this.inp.setAttribute('min', 1);
+		this.inp.setAttribute('max', 9);
+		//this.inp.setAttribute('maxlength', 1);
 		this.inp.setAttribute('id', id);
-		this.inp.value = "";
 		this.inp.setAttribute('readonly', true);
 	}
-
-	setValue(value){
-		if(value !== 0){
-			this.inp.value = value;
-		}
+	
+	getValue(){
+		return this.inp.value;
 	}
 
 	setReadOnly(bool){
@@ -53,14 +51,25 @@ class Grid {
 	initializeSquaresArray(){
 		for(let i = 0; i < this.row; i++){
 			var temp = [];
-			for(let j = 0; j < this.col; j++){
+			for(let j = 0; j < this.col; j++) {
 				let unique_id = this.row * i + j;
 				let tempSquare = new Square(unique_id);
-				tempSquare.getButton().addEventListener("input",this.handleClicks);
+				tempSquare.getButton().addEventListener("change", this.handleClicks);
 				temp.push(tempSquare);
 			}
 			this.squares.push(temp);
 		}
+	}
+
+
+	handleClicks(){
+		if(this.value >= 1 && this.value <= 9){
+			this.style.color = '#679D64';
+		} else {
+			alert("Please enter a number between 1 and 9, inclusive");
+			this.value = "";
+		}
+				
 	}
 
 
@@ -69,15 +78,16 @@ class Grid {
 			for(let j = 0; j < this.col; j++){
 				if(newArray[i][j] === 0) {
 					this.squares[i][j].setReadOnly(false);
-					this.squares[i][j].setValue("");
+					this.squares[i][j].getButton().value = "";
 				} else {
-					this.squares[i][j].setValue(newArray[i][j]);
+					this.squares[i][j].getButton().value = newArray[i][j];
 					this.squares[i][j].setReadOnly(true);
 				}
 			}
 		}
 	}
 
+/*
 	clearGrid() {
 		for(let i = 0; i < this.row; i++){
 			for(let j = 0; j < this.col; j++){
@@ -85,15 +95,7 @@ class Grid {
 			}
 		}		
 	}
-
-	handleClicks(){
-		this.style.backgroundColor = "red";
-		console.log(this.id);
-	}
-
-	updateSquares(stats){
-
-	}
+*/
 
 
 	generateGrid(){
@@ -105,14 +107,6 @@ class Grid {
 			var div = document.createElement("tr");
 			div.setAttribute('id', 'row-' + i);
 			div.setAttribute('class', 'row');
-
-/*
-			if(i%3 === 0) {
-				div.style.borderTop = '3px solid red';
-			} else if (i === this.row - 1) {
-				div.style.borderBottom = '3px solid red';
-			}
-*/
 
 			for(var j = 0; j < this.col; j++){
 				var entry = document.createElement("td");
@@ -130,22 +124,22 @@ class Grid {
 					entry.style.borderBottom = '3px solid #747C7B';
 				}
 
-/*
-				if(j%3 === 0) {
-					div.style.borderLeft = '3px solid red';
-				} else if (j === this.col - 1) {
-					div.style.borderRight = '3px solid red';
-				}
-*/
-
 				div.appendChild(entry);
 			}
 			table.appendChild(div);
-			//puzzle.appendChild(div);
 		}
 		puzzle.appendChild(table);
 	}
 
+/*
+	verify(){
+	for(let i = 0; i < this.row; i++){
+		for(let j = 0; j < this.col; j++){
+			console.log(this.squares[i][j].getValue());
+			}
+		}
+	}
+*/
 }
 
 
@@ -175,5 +169,6 @@ function getPuzzle(temp_url){
 
 const grid = new Grid(9, 9);
 grid.generateGrid();
+//verify_button_HTML.addEventListener("click", function(){grid.verify();});
 
 
