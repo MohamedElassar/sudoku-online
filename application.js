@@ -13,13 +13,26 @@ class Square {
 	constructor(id)	{
 		this.inp = document.createElement("input");	
 		this.inp.setAttribute('class', 'inputs');
+		this.inp.setAttribute('type', 'number');
+		this.inp.setAttribute('min', '1');
+		this.inp.setAttribute('max', '9');
+		this.inp.setAttribute('maxlength', '1');
 		this.inp.setAttribute('id', id);
 		this.inp.value = "";
+		this.inp.setAttribute('readonly', true);
 	}
 
 	setValue(value){
 		if(value !== 0){
 			this.inp.value = value;
+		}
+	}
+
+	setReadOnly(bool){
+		if(bool) {
+			this.inp.setAttribute('readonly', bool);	
+		} else {
+			this.inp.removeAttribute('readonly');
 		}
 	}
 	
@@ -52,14 +65,18 @@ class Grid {
 
 
 	beginNewArray(newArray) {
-		this.clearGrid();
 		for(let i = 0; i < this.row; i++){
 			for(let j = 0; j < this.col; j++){
-				this.squares[i][j].setValue(newArray[i][j]);
+				if(newArray[i][j] === 0) {
+					this.squares[i][j].setReadOnly(false);
+					this.squares[i][j].setValue("");
+				} else {
+					this.squares[i][j].setValue(newArray[i][j]);
+					this.squares[i][j].setReadOnly(true);
+				}
 			}
 		}
 	}
-
 
 	clearGrid() {
 		for(let i = 0; i < this.row; i++){
@@ -141,6 +158,7 @@ function setURL(){
 
 
 function getPuzzle(temp_url){
+
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.open("GET", temp_url, true);
 	xmlhttp.send();		
