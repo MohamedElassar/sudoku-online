@@ -26,7 +26,7 @@
 
 	#puzzle {
 		display:inline-block;
-		margin:50% 2% 0% 2%;
+		margin:40% 2% 0% 2%;
 	}
 
 	@media screen and (min-width: 600px) {
@@ -36,7 +36,7 @@
 		}
 	
 		#puzzle {
-			margin:10% 2% 0% 2%;
+			margin:5% 2% 0% 2%;
 		}
 	}
 
@@ -55,11 +55,12 @@
 
 
 
-	#settings {
+	.settings {
 		text-align:center;
+		margin: 10px 0 10px 0; 
 	}
 
-	#settings button {
+	.settings button {
 		transition-duration: 0.4s;
 		border-radius: 12px;
 		font-size:24px;
@@ -67,12 +68,12 @@
 				
 	}
 
-	#settings button:hover {
+	.settings button:hover {
  		background-color: #DEE9CC;
 		color: white;
 		cursor: pointer;
 	}
-
+	
 
 	#root {
 		text-align:center;

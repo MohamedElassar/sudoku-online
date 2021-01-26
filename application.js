@@ -10,6 +10,9 @@ hard_button_HTML.addEventListener("click", setURL);
 
 var url = "https://sugoku.herokuapp.com/board?difficulty=";
 
+const ROWS = 9;
+const COLS = 9;
+
 class Square {
 	constructor(id) {
 		this.inp = document.createElement("input");	
@@ -46,6 +49,7 @@ class Grid {
 		this.stats = Array.from(Array(this.row), () => new Array(this.col));
 		this.squares = [];	
 		this.initializeSquaresArray();
+		this.puzzle = [];
 	}
 
 	initializeSquaresArray(){
@@ -65,6 +69,7 @@ class Grid {
 	handleClicks(){
 		if(this.value >= 1 && this.value <= 9){
 			this.style.color = '#679D64';
+			//this.style.color = 'white';
 		} else {
 			alert("Please enter a number between 1 and 9, inclusive");
 			this.value = "";
@@ -86,16 +91,6 @@ class Grid {
 			}
 		}
 	}
-
-/*
-	clearGrid() {
-		for(let i = 0; i < this.row; i++){
-			for(let j = 0; j < this.col; j++){
-				this.squares[i][j].setValue("");
-			}
-		}		
-	}
-*/
 
 
 	generateGrid(){
@@ -131,15 +126,35 @@ class Grid {
 		puzzle.appendChild(table);
 	}
 
-/*
-	verify(){
-	for(let i = 0; i < this.row; i++){
-		for(let j = 0; j < this.col; j++){
-			console.log(this.squares[i][j].getValue());
+
+	setSol(puzzle_copy){
+		for(let i = 0; i < ROWS; i++){
+			var temp = [];
+			for(let j = 0; j < COLS; j++){
+				temp.push(puzzle_copy[i][j]);
 			}
+			this.puzzle.push(temp);
 		}
 	}
-*/
+
+	verify(){
+		let ctr = 0;
+		for(let i = 0; i < ROWS; i++){
+			for(let j = 0; j < COLS; j++){
+				if(this.squares[i][j].getButton().value != this.puzzle[i][j]){
+					this.squares[i][j].getButton().style.backgroundColor = '#ffcccc';
+					ctr += 1;
+				}
+			}
+		}
+ 
+		if(ctr === 0) {
+			alert("Good Job!")
+		}
+
+	}
+
+
 }
 
 
@@ -159,16 +174,34 @@ function getPuzzle(temp_url){
 
 	xmlhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-	    		var str = this.responseText;
-			var json = JSON.parse(str);
-			grid.beginNewArray(json["board"]);
+			var str = this.responseText;
+			var json = JSON.parse(str);			
+			
+			var puzzle = json["board"];
+			var puzzle_copy = [];
 
+			for(var i = 0; i < ROWS; i++){
+				var temp = [];
+				for(var j = 0; j < COLS; j++){
+					temp.push(puzzle[i][j]);					
+				}	
+				puzzle_copy.push(temp);
+			}
+
+	
+			getSol(puzzle_copy);
+		
+			grid.setSol(puzzle_copy);
+			grid.beginNewArray(puzzle);
 		}
 	};
 }
 
-const grid = new Grid(9, 9);
+
+
+const grid = new Grid(ROWS, COLS);
 grid.generateGrid();
-//verify_button_HTML.addEventListener("click", function(){grid.verify();});
+
+verify_button_HTML.addEventListener("click", function(){grid.verify();});
 
 

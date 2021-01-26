@@ -9,18 +9,25 @@
 
 	<body>
 
+		
 		<div id="root">
-			<div id="puzzle"></div>
+			<div id="puzzle">
+				<div class="settings">
+					<button type="button" id="easy" onclick="document.getElementById('medium').disabled=true;document.getElementById('hard').disabled=true;">easy</button>
+					<button type="button" id="medium" onclick="document.getElementById('easy').disabled=true;document.getElementById('hard').disabled=true;">medium</button>
+					<button type="button" id="hard" onclick="document.getElementById('easy').disabled=true;document.getElementById('medium').disabled=true;">hard</button>
+				</div>
+			</div>
+			
+			<div class="settings">
+				<button type="button" id="verify">verify</button>
+				<button onClick="window.location.reload();">clear all</button>
+			</div>
 		</div>
 
-		<div id="settings">
-			<button type="button" id="easy">easy</button>
-			<button type="button" id="medium">medium</button>
-			<button type="button" id="hard">hard</button>
-			<button type="button" id="verify">verify</button>
-			<button onClick="window.location.reload();">clear all</button>
-		</div>
 
+	
+		<script src="solver.js" charset="utf-8"></script>
 		<script src="application.js" charset="utf-8"></script>
 	</body>
 
