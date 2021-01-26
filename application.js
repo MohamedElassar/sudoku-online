@@ -144,6 +144,8 @@ class Grid {
 				if(this.squares[i][j].getButton().value != this.puzzle[i][j]){
 					this.squares[i][j].getButton().style.backgroundColor = '#ffcccc';
 					ctr += 1;
+				} else {
+					this.squares[i][j].getButton().style.backgroundColor = '#E9F8F7';
 				}
 			}
 		}
