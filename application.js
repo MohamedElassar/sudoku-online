@@ -190,11 +190,10 @@ function getPuzzle(temp_url){
 				puzzle_copy.push(temp);
 			}
 
-	
-			getSol(puzzle_copy);
-		
-			grid.setSol(puzzle_copy);
 			grid.beginNewArray(puzzle);
+			
+			getSol(puzzle_copy);
+			grid.setSol(puzzle_copy);
 		}
 	};
 }
