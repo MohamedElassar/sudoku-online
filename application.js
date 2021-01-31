@@ -62,6 +62,7 @@ class Grid {
 		this.squares = [];	
 		this.initializeSquaresArray();
 		this.puzzle = [];
+		this.verify = this.verify.bind(this);
 	}
 
 	/*
@@ -176,6 +177,13 @@ class Grid {
 	incorrect entry. If no discrepancies are found, an alert message appears saying "Good Job!"
 	*/
 	verify(){
+
+		//checking if user clicked Verify button prior to loading a puzzle
+		if(this.puzzle.length === 0){
+			alert("Nothing to verify :)");
+			return;
+		}
+		
 		let ctr = 0;
 		for(let i = 0; i < ROWS; i++){
 			for(let j = 0; j < COLS; j++){
