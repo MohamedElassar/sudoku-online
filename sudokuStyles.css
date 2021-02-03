@@ -23,7 +23,6 @@
  		 margin: 0;
 	}
 
-
 	#puzzle {
 		display:inline-block;
 		margin:40% 2% 0% 2%;
@@ -40,7 +39,6 @@
 		}
 	}
 
-
 	.inputs:hover {
 		background-color:#DCEDFF;
 	}
@@ -53,9 +51,8 @@
 		display:block;
 	}
 
-
-
 	.settings {
+		position: relative;
 		text-align:center;
 		margin: 10px 0 10px 0; 
 	}
@@ -64,8 +61,7 @@
 		transition-duration: 0.4s;
 		border-radius: 12px;
 		font-size:24px;
-		padding: 6px;
-				
+		padding: 6px;	
 	}
 
 	.settings button:hover {
@@ -74,7 +70,18 @@
 		cursor: pointer;
 	}
 	
+	#show-solution {
+		margin-top: 10px;
+	}
+
+	#timer {
+		display: inline-block;
+		position:absolute;
+		margin-left: 120px;
+		top: 13px;
+	}
 
 	#root {
 		text-align:center;
 	}
+

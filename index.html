@@ -13,15 +13,19 @@
 		<div id="root">
 			<div id="puzzle">
 				<div class="settings">
-					<button type="button" id="easy" onclick="document.getElementById('medium').disabled=true;document.getElementById('hard').disabled=true;">easy</button>
+					<button type="button" id="easy" >easy</button>
 					<button type="button" id="medium" onclick="document.getElementById('easy').disabled=true;document.getElementById('hard').disabled=true;">medium</button>
 					<button type="button" id="hard" onclick="document.getElementById('easy').disabled=true;document.getElementById('medium').disabled=true;">hard</button>
+					<div id="timer"></div>
 				</div>
 			</div>
 			
 			<div class="settings">
-				<button type="button" id="verify">verify</button>
-				<button onClick="window.location.reload();">clear all</button>
+				<button type="button" id="verify">verify my solution</button>
+				<button onClick="window.location.reload();">start a new puzzle</button>
+				<div>
+					<button type="button" id="show-solution">show solution</button>
+				</div>
 			</div>
 		</div>
 
