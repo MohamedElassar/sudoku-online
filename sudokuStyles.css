@@ -95,14 +95,14 @@
 		text-align:center;
 	}
 
-	#logos {
-		text-align:center;
-		position:relative;
-		margin-top:1%;
-	}
-	
 	.github-logo {
 		width: 50px;
 		height: 45px;
+		text-align:center;
+		transition: 0.5s;
+	}
+
+	.github-logo:hover {
+		transform: translateY(-5px);
 	}
 	
